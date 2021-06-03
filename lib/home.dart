@@ -1,10 +1,14 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ottium_frontend/server.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:convert';
 import 'VideoPlayer.dart';
+
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,17 +18,28 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var search = TextEditingController();
   onTapHandler(int i) {
-    if (movieList[i].streamingurl != null)
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => VideoPlayer(movieList[i]),
-        ),
-      );
+    // if (movieList[i].streamingurl != null)
+    //   Navigator.of(context).push(
+    //     MaterialPageRoute(
+    //       builder: (context) => VideoPlayer(movieList[i]),
+    //     ),
+    //   );
   }
+
   String plateform = 'Zee5';
   bool searching = false;
   List<MovieData> movieList = [];
+
   Future<void> onPressHandler() async {
+    const url = 'https://www.zee5.com/search';
+    if (await canLaunch(url)) {
+      await launch(url,   forceWebView: true,
+        enableJavaScript: true,
+        enableDomStorage: true,);
+    } else {
+      throw 'Could not launch $url';
+    }
+
     searching = true;
     movieList.clear();
     setState(() {});
@@ -57,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
     size: 50.0,
   );
 
-
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               decoration: BoxDecoration(
-                color: plateform=="Voot"?Color(0xffa526ff):Color(0xff800080),
+                color:
+                    plateform == "Voot" ? Color(0xffa526ff) : Color(0xff800080),
               ),
             ),
             ListTile(
@@ -132,13 +152,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
-
           ],
         ),
       ),
       appBar: AppBar(
         title: Text("Search ${plateform} Movies"),
-        backgroundColor: plateform=="Voot"?Color(0xffa526ff):Color(0xff800080),
+        backgroundColor:
+            plateform == "Voot" ? Color(0xffa526ff) : Color(0xff800080),
       ),
       body: Column(
         children: [
@@ -151,7 +171,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   controller: search,
                 ),
               ),
-              IconButton(icon: Icon(Icons.search), onPressed: onPressHandler)
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: onPressHandler,
+              ),
             ],
           ),
           Expanded(
@@ -163,7 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Card(
                         elevation: 5,
                         margin: EdgeInsets.all(20),
-                        color: plateform=="Voot"?Color(0xffa526ff):Color(0xff800080),
+                        color: plateform == "Voot"
+                            ? Color(0xffa526ff)
+                            : Color(0xff800080),
                         clipBehavior: Clip.antiAlias,
                         child: Column(
                           children: [

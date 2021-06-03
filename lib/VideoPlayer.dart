@@ -6,7 +6,7 @@ import 'package:yoyo_player/yoyo_player.dart';
 import 'home.dart';
 
 class VideoPlayer extends StatefulWidget {
-  final MovieData url;
+  final String url;
   VideoPlayer(this.url);
   @override
   _VideoPlayerState createState() => _VideoPlayerState();
@@ -26,9 +26,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
       appBar: full
           ? null
           : AppBar(
-              title: Text(widget.url.title),
+              title: Text("watch"),
             ),
-      backgroundColor: widget.url.plateform=="Voot"?Color(0xffa526ff):Color(0xff800080),
+      // backgroundColor: widget.url.plateform=="Voot"?Color(0xffa526ff):Color(0xff800080),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -37,7 +37,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
                   ? MediaQuery.of(context).size.width /
                       MediaQuery.of(context).size.height
                   : 16 / 9,
-              url: widget.url.streamingurl,
+              url: widget.url,
               videoStyle: VideoStyle(
                 play: Icon(Icons.pause),
                 pause: Icon(Icons.play_arrow),
@@ -69,14 +69,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
                 });
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(widget.url.description,
-                  style: GoogleFonts.nunitoSans(
-                    textStyle: TextStyle(
-                        color: Colors.white, letterSpacing: .5, fontSize: 15),
-                  )),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(widget.url.description,
+            //       style: GoogleFonts.nunitoSans(
+            //         textStyle: TextStyle(
+            //             color: Colors.white, letterSpacing: .5, fontSize: 15),
+            //       )),
+            // ),
           ],
         ),
       ),

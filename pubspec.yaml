@@ -1,20 +1,7 @@
 name: ottium_frontend
 description: A new Flutter application.
-
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
 environment:
@@ -29,10 +16,10 @@ dependencies:
   flutter_launcher_icons: ^0.8.1
   flutter_spinkit: ^4.1.2+1
   web_scraper: ^0.0.8
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  url_launcher: ^5.7.10
+  webview_flutter: ^1.0.7
   cupertino_icons: ^1.0.0
+  flutter_share: ^1.0.5
 
 dev_dependencies:
   flutter_test:
